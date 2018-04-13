@@ -39,7 +39,7 @@ def start_scan(itemid):
     return True
 
 
-@shared_task(time_limit=120)
+@shared_task(time_limit=1200)
 def dispatch_scan(ip):
     """
     分发到celery去跑

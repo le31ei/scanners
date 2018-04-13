@@ -132,5 +132,6 @@ STATICFILES_DIRS = [
 CELERY_RESULT_BACKEND = 'django-db'
 # CELERY_BROKER_URL = 'amqp://lxflxf:qwert4321@home.le31ei.top//'
 CELERY_BROKER_URL = 'amqp://lxflxf:qwert4321@192.168.2.219//'
+CELERY_TASK_TRACK_STARTED = True
 
 LOG_PATH = '/tmp/log'
