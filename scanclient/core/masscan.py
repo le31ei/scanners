@@ -9,6 +9,7 @@ from libnmap.process import NmapProcess
 from libnmap.parser import NmapParser, NmapParserException
 from scanclient.libs.log import logger
 
+
 from portscan.models import ScanItems, PortResult, IPResult
 
 import requests

@@ -8,8 +8,7 @@ from celery import shared_task
 from portscan.models import ScanItems, IPResult
 from .core.masscan import PortScan
 
-import gevent
-from gevent.pool import Group, Pool
+
 import ipaddress
 
 
@@ -17,15 +16,32 @@ import ipaddress
 def start_scan(itemid):
     scanitem = ScanItems.objects.get(itemid=itemid)
     # TODO: 协程扫描
-    scan_pool = Pool(5)  # 最大允许100个协程， TODO: 后续可配置
     ips = ipaddress.ip_network(scanitem.scanIP, strict=False)
+    result = []
     for ip in ips:
         # 将ip插入IPresult表
         ipresult = IPResult(scannitem=scanitem, ip=ip)
         ipresult.save()
-        scan_pool.add(gevent.spawn(PortScan, str(ip)))
-        print(str(ip)+' started! ')
-    scan_pool.join()
+        result.append(dispatch_scan.delay(str(ip)))
+        print(str(ip) + ' started! ')
+    while True:
+        for _ in result:
+            if _.ready():    # 执行完毕，清除
+                result.remove(_)
+            else:
+                continue
+        if len(result) == 0:
+            break
     scanitem.status = True   # 扫描完成
     scanitem.save()
     return True
+
+
+@shared_task
+def dispatch_scan(ip):
+    """
+    分发到celery去跑
+    :param ip:
+    :return:
+    """
+    PortScan(ip)
