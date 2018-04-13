@@ -31,6 +31,8 @@ def start_scan(itemid):
                 print(_.status)
                 result.remove(_)
         print('has '+str(len(result))+' not done!')
+        if len(result) != 0:
+            print(result)
         if len(result) == 0:
             break
     scanitem.status = True   # 扫描完成
