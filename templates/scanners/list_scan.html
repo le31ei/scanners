@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block js %}
+<script type="text/javascript" src="{% static 'js/scanners/list.js' %}"></script>
+{% endblock %}
+{% block body %}
+    <table lay-filter="listtable">
+  <thead>
+    <tr>
+      <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+      <th lay-data="{field:'uuid'}">项目uuid</th>
+      <th lay-data="{field:'name', sort: true}">项目名称</th>
+      <th lay-data="{field:'url'}">项目url</th>
+      <th lay-data="{field:'addtime'}">添加时间</th>
+      <th lay-data="{field:'status'}">状态</th>
+      <th lay-data="{toolbar: '#barDemo'}">操作</th>
+    </tr>
+  </thead>
+    <tbody>
+        {% for item in scanitems %}
+                <tr>
+                    <td>
+                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+                    </td>
+                    <td>{{ item.itemid }}</td>
+                    <td>{{ item.scanname }}</td>
+                    <td>{{ item.scanIP }}</td>
+                    <td>{{ item.add_time }}</td>
+                    <td>{% if item.status %}<span class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal">完成</span>
+                        {% else %}
+                        <span class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">正在扫描</span>
+                        {% endif %}</td>
+                    {% endfor %}
+          </tr>
+        </tbody>
+    </tbody>
+</table>
+    {% if is_paginated %}
+      <div class="page">
+        <div>
+            {% if page_obj.has_previous %}
+          <a class="layui-btn layui-btn-primary" href="?page={{ page_obj.previous_page_number }}">上一页</a>
+            {% endif %}
+          <a class="layui-btn layui-btn-primary">第{{ page_obj.number }}页，共{{ page_obj.paginator.num_pages }}页</a>
+        {% if page_obj.has_next %}
+          <a class="layui-btn layui-btn-primary" href="?page={{ page_obj.next_page_number }}">下一页</a>
+            {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+<script type="text/html" id="barDemo">
+  <a lay-event="detail" title="查看" href="javascript:;">
+            <i class="layui-icon">&#xe63c;</i>
+        </a>
+        <a lay-event="download" title="下载" href="#">
+            <i class="layui-icon">&#xe61e;</i>
+        </a>
+        <a lay-event="del" title="删除" href="javascript:;">
+            <i class="layui-icon">&#xe640;</i>
+        </a>
+</script>
+{% endblock %}

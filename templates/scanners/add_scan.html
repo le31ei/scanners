@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block js %}
+<script type="text/javascript" src="{% static 'js/scanners/add.js' %}"></script>
+{% endblock %}
+{% block body %}
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目名称</label>
+            <div class="layui-input-inline">
+                <input name="itemname" type="text" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">扫描IP段</label>
+            <div class="layui-input-inline">
+                <input name="ip" type="text" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="add">添加</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    {% csrf_token %}
+    </form>
+{% endblock %}
