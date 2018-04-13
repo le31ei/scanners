@@ -28,6 +28,7 @@ def start_scan(itemid):
     while True:
         for _ in result:
             if _.status == 'FAILURE' or _.status == 'SUCCESS':    # 执行完毕，清除
+                print(_.status)
                 result.remove(_)
         print('has '+str(len(result))+' not done!')
         if len(result) == 0:
