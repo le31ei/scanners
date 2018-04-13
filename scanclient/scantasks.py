@@ -27,9 +27,7 @@ def start_scan(itemid):
         print(str(ip) + ' started! ')
     while True:
         for _ in result:
-            if _.ready():    # 执行完毕，清除
-                result.remove(_)
-            else:
+            if _.status == 'FAILURE' or _.status == 'SUCCESS':    # 执行完毕，清除
                 result.remove(_)
             sleep(3)
         print('has '+str(len(result))+' not done!')
