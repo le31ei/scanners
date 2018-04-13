@@ -7,6 +7,7 @@
 from celery import shared_task
 from portscan.models import ScanItems, IPResult
 from .core.masscan import PortScan
+from time import sleep
 
 
 import ipaddress
@@ -29,8 +30,9 @@ def start_scan(itemid):
             if _.ready():    # 执行完毕，清除
                 result.remove(_)
             else:
-                continue
-        print('还有'+str(len(result))+'未完成')
+                result.remove(_)
+            sleep(3)
+        print('has '+str(len(result))+' not done!')
         if len(result) == 0:
             break
     scanitem.status = True   # 扫描完成

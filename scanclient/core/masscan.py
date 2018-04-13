@@ -58,7 +58,7 @@ def PortScan(ip):
                             if 'http' in serv.service or 'https' in serv.service\
                                     or 'tcpwrapped' in serv.service:
                                 title = gettile(ips+':'+str(ports))
-                                print('title是'+title)
+                                print('title is'+title)
                             ip_result = IPResult.objects.get(ip=ips)
                             insert_result = PortResult(ip=ip_result, port=str(ports), service=serv, title=title)
                             insert_result.save()
