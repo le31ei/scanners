@@ -42,6 +42,7 @@ def PortScan(ip):
             print('ports: '+str(ports))
             try:
                 nm = NmapProcess(ip, options="-sV -Pn -p{0}".format(ports))
+                print('nmap ing')
                 rc = nm.run()
                 if rc != 0:
                     logger.error("nmap scan failed: {0}".format(nm.stderr))
@@ -55,8 +56,8 @@ def PortScan(ip):
                             print('ip: %s, 端口%s 对应的服务是 %s' % (ips, ports, serv.service))
                             # TODO：如果为http或者https端口，获取title存入数据库
                             title = ''
-                            if 'http' in serv.service or 'https' in serv.service\
-                                    or 'tcpwrapped' in serv.service:
+                            if 'http' in serv.service or 'https' in serv.service:
+                                print('gettile ing')
                                 title = gettile(ips+':'+str(ports))
                                 print('title is'+title)
                             ip_result = IPResult.objects.get(ip=ips)
