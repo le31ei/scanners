@@ -28,7 +28,7 @@ def PortScan(ip):
     mas = masscan.PortScanner()
     # 不扫描c段
     try:
-        mas.scan(ip, ports='0-1024', arguments='--max-rate 2000', sudo=True)
+        mas.scan(ip, ports='0-65535', arguments='--max-rate 2000', sudo=True)
         print('masscan start')
     except:
         print('no ports open')
