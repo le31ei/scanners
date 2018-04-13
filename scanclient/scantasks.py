@@ -30,6 +30,7 @@ def start_scan(itemid):
                 result.remove(_)
             else:
                 continue
+        print('还有'+str(len(result))+'未完成')
         if len(result) == 0:
             break
     scanitem.status = True   # 扫描完成
