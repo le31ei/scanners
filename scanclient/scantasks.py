@@ -29,7 +29,6 @@ def start_scan(itemid):
         for _ in result:
             if _.status == 'FAILURE' or _.status == 'SUCCESS':    # 执行完毕，清除
                 result.remove(_)
-            sleep(3)
         print('has '+str(len(result))+' not done!')
         if len(result) == 0:
             break
