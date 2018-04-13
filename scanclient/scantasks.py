@@ -7,6 +7,7 @@
 from celery import shared_task
 from portscan.models import ScanItems, IPResult
 from .core.masscan import PortScan
+from celery.result import AsyncResult
 from time import sleep
 
 
@@ -27,8 +28,7 @@ def start_scan(itemid):
         print(str(ip) + ' started! ')
     while True:
         for _ in result:
-            if _.status == 'SUCCESS' or _.status == "FAILURE"\
-                    or _.status == 'PENDING':    # 执行完毕，清除
+            if AsyncResult(_.task_id).ready():    # 执行完毕，清除
                 result.remove(_)
         print('has '+str(len(result))+' not done!')
         if len(result) != 0:

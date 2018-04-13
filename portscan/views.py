@@ -59,7 +59,6 @@ class AddScanView(View):
                 return JsonResponse({'msg': '提交成功', 'code': '1'})
             except Exception as e:
                 print(e)
-                scanitem.delete()
                 return JsonResponse({'msg': '请输入正确的IP地址'})
         else:
             return JsonResponse({'msg': '请输入正确的数值'})
