@@ -41,11 +41,12 @@ def PortScan(ip):
         for ports in result['scan'][ips]['tcp']:
             print('ports: '+str(ports))
             try:
-                nm = NmapProcess(ip, options="-sV -Pn -p{0}".format(ports))
+                nm = NmapProcess(ip, options="-sV -Pn -p{0} -host-timeout 60000".format(ports))
                 print('nmap ing')
                 rc = nm.run()
                 if rc != 0:
                     logger.error("nmap scan failed: {0}".format(nm.stderr))
+                    return False
                 try:
                     parsed = NmapParser.parse(nm.stdout)
                     print(parsed.hosts)
