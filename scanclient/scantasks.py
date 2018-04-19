@@ -48,3 +48,5 @@ def dispatch_scan(ip):
     :return:
     """
     PortScan(ip)
+
+    return True
