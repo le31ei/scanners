@@ -68,7 +68,7 @@ def PortScan(ip):
                 except NmapParserException as e:
                     logger.error("Exception raised while parsing scan: {0}".format(e.msg))
             except AssertionError:
-                result_port[str(ports)] = None
+                result_port[str(ports)] = 'None'
                 logger.error('端口：%s，识别不了服务' % ports)
                 # DOne: 入库，端口识别不了服务类型
                 continue
@@ -90,7 +90,7 @@ def gettile(url):
             return 'None'
     except Exception as e:
         logger.error(e)
-        return None
+        return 'None'
 
 
 def _decode_response_text(strs, lang=None):
@@ -107,6 +107,6 @@ def _decode_response_text(strs, lang=None):
         try:
             return strs.encode(lang)
         except:
-            pass
+            return 'None'
     raise Exception('Can not decode response text')
 
